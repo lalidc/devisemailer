@@ -10,8 +10,5 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Run tests
-        run: bundle exec rspec spec/*
-
       - name: Run rubocop
         run: bundle exec rubocop --parallel
