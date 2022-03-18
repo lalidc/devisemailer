@@ -1,4 +1,4 @@
-name: Rubocop
+name: Rubocop linter
 on:  [push, pull_request]
 
 jobs:
@@ -9,8 +9,4 @@ jobs:
         ruby-version: ['2.7']
 
     steps:
-      - name: Checkout code
       - uses: actions/checkout@v2
-      
-      - name: Run rubocop
-        run: bundle exec rubocop --parallel
