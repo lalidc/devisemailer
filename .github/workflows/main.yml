@@ -4,11 +4,10 @@ on:  [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ruby-version: ['2.7']
 
     steps:
+      - name: Checkout code
       - uses: actions/checkout@v2
+      
       - name: Run rubocop
-        run: bundle exec rubocop --parallel
+        run: bundle exec rubocop
