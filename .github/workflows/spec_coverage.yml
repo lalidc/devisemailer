@@ -3,7 +3,7 @@ name: Spec Coverage
 on:
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   spec_coverage:
