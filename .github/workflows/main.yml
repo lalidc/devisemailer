@@ -1,9 +1,13 @@
+name: Code Linting
 
-name: Rubocop
-on:  [push, pull_request]
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
+  code_linting:
+    name: Code Linting
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -11,3 +15,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Install Ruby
+        uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
+        with:
+          ruby-version: '3.1'
+      - name: Bundle install
+        run: bundle install
+      - name: Run rubocop
+        run: bundle exec rubocop --parallel
