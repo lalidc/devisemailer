@@ -3,7 +3,7 @@ name: Specs
 on:
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   specs:
