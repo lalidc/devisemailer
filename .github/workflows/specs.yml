@@ -1,0 +1,41 @@
+name: Specs
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  specs:
+    name: Specs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['3.1.0']
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+            POSTGRES_DB: rails_test
+            POSTGRES_USER: rails
+            POSTGRES_PASSWORD: password
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Ruby
+        uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
+        with:
+          ruby-version: '3.1'
+      - name: Bundle install
+        run: bundle install
+      - name: Setup Database
+        run: |
+          cp config/example.database.yml config/database.yml
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
+      - name: Run rspec
+        run: bundle exec rake
